@@ -94,7 +94,7 @@ namespace MyCalendar
                     }
                     else dayLabels[index].ForeColor = Color.Black;
                 }
-                // 오늘 일자 체크(라벨 테두리 on)
+                // 오늘 일자 체크(라벨 테두리 on, 배경색 녹색(180, 255, 180))
                 if (selectedDate.Year == DateTime.Now.Year && selectedDate.Month == DateTime.Now.Month && selectedDate.Day == i)
                 {
                     dayLabels[index].BorderStyle = BorderStyle.FixedSingle;
@@ -137,7 +137,7 @@ namespace MyCalendar
 
             // 음력 -> 양력 데이터 변환이 필요한 공휴일 체크
             // 휴일 하나씩 모두 검사해야 연휴가 있음에도 표시되지 않는 현상을 피할 수 있음
-            // 일반 공휴일과 겹칠시 일반 공휴일을 표시
+            // 일반 공휴일과 겹칠시 일반 공휴일을 우선 표시
 
             // 설 연휴 음력 계산
             DateTime dateTime = new DateTime(selectedDate.Year -1, 12, 30);
@@ -255,13 +255,12 @@ namespace MyCalendar
         // 일자 라벨 데이터 초기화
         public void clearDayLabels()
         {
-            for (int i = 0; i < 42; i++)
+            for (int i = 0; i < dayLabels.Length; i++)
             {
                 dayLabels[i].BorderStyle = BorderStyle.None;
                 dayLabels[i].BackColor = Color.White;
                 dayLabels[i].Text = string.Empty;
             }
         }
-
     }
 }
