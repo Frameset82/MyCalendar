@@ -63,13 +63,13 @@ namespace MyCalendar
             currentDate = selectedDate;
         }
 
-        // 지정된 달의 날짜 데이터 Set
+        // 지정된 달의 날짜 데이터 지정
         private void setDate(DateTime selectedDate)
         {
             clearDayLabels();
             setCurrentDate(selectedDate);
 
-            Dictionary<int, string> holidayDate = getHoliday(selectedDate);
+            Dictionary<int, List<string>> holidayDate = getHoliday(selectedDate);
             DateTime startDay = new DateTime(selectedDate.Year, selectedDate.Month, 1);
             int endDay = DateTime.DaysInMonth(selectedDate.Year, selectedDate.Month);
             int startDayWeek = (int)startDay.DayOfWeek;
@@ -84,7 +84,10 @@ namespace MyCalendar
                 {
                     dayLabels[index].ForeColor = Color.Red;
                     dayLabels[index].BackColor = Color.FromArgb(255, 220, 220);
-                    dayLabels[index].Text += "\n" + holidayDate[i];
+                    for (int j = 0; j < holidayDate[i].Count; j++)
+                    {
+                        dayLabels[index].Text += "\n" + holidayDate[i][j];
+                    }
                 }
                 else
                 {   // 일요일 체크
@@ -97,39 +100,41 @@ namespace MyCalendar
                 // 오늘 일자 체크(라벨 테두리 on, 배경색 녹색(180, 255, 180))
                 if (selectedDate.Year == DateTime.Now.Year && selectedDate.Month == DateTime.Now.Month && selectedDate.Day == i)
                 {
-                    dayLabels[index].BorderStyle = BorderStyle.FixedSingle;
+                    //dayLabels[index].BorderStyle = BorderStyle.FixedSingle;
                     dayLabels[index].BackColor = Color.FromArgb(180, 255, 180);
                 }
             }
         }
 
-        // 지정된 날짜를 입력받아 해당 월의 공휴일 정보(Dictionary<int, string>)를 반환
-        private Dictionary<int, string> getHoliday(DateTime selectedDate)
+        // 지정된 날짜를 입력받아 해당 월의 공휴일 정보(Dictionary<int, List<string>)를 반환
+        // 같은날 일반 공휴일과 음양력 변환이 필요한 공휴일이 겹칠경우를 위해 딕셔너리 value값을 리스트로 사용
+        private Dictionary<int, List<string>> getHoliday(DateTime selectedDate)
         {
-            Dictionary<int, string> holidayDate = new Dictionary<int, string>();
+            Dictionary<int, List<string>> holidayDate = new Dictionary<int, List<string>>();
+            // 일반 공휴일 추가 작업
             switch (selectedDate.Month)
             {
                 case 1:
-                    holidayDate.Add(1, "신정");
+                    holidayDate.Add(1, new List<string> { "신정" });
                     break;
                 case 3:
-                    holidayDate.Add(1, "삼일절");
+                    holidayDate.Add(1, new List<string> { "삼일절" });
                     break;
                 case 5:
-                    holidayDate.Add(5, "어린이날");
+                    holidayDate.Add(5, new List<string> { "어린이날" });
                     break;
                 case 6:
-                    holidayDate.Add(6, "현충일");
+                    holidayDate.Add(6, new List<string> { "현충일" });
                     break;
                 case 8:
-                    holidayDate.Add(15, "광복절");
+                    holidayDate.Add(15, new List<string> { "광복절" });
                     break;
                 case 10:
-                    holidayDate.Add(3, "개천절");
-                    holidayDate.Add(9, "한글날");
+                    holidayDate.Add(3, new List<string> { "개천절" });
+                    holidayDate.Add(9, new List<string> { "한글날" });
                     break;
                 case 12:
-                    holidayDate.Add(25, "크리스마스");
+                    holidayDate.Add(25, new List<string> { "크리스마스" });
                     break;
                 default:
                     break;
@@ -137,56 +142,62 @@ namespace MyCalendar
 
             // 음력 -> 양력 데이터 변환이 필요한 공휴일 체크
             // 휴일 하나씩 모두 검사해야 연휴가 있음에도 표시되지 않는 현상을 피할 수 있음
-            // 일반 공휴일과 겹칠시 일반 공휴일을 우선 표시
+            // 일반 공휴일과 겹칠시 일반 공휴일을 우선 표시 ex(어린이날과 석가탄신일이 겹칠경우 어린이날이 위에 표시)
 
             // 설 연휴 음력 계산
             DateTime dateTime = new DateTime(selectedDate.Year -1, 12, 30);
             dateTime = convertLunarToSolar(dateTime.Year, dateTime.Month, dateTime.Day);
-            if (dateTime.Month == selectedDate.Month && !holidayDate.ContainsKey(dateTime.Day))
-            {
-                holidayDate.Add(dateTime.Day, "설 연휴");
-            }
+            holidayDate = setLunarHoliday(dateTime, selectedDate, holidayDate, "설 연휴");
+
             dateTime = new DateTime(selectedDate.Year, 1, 1);
             dateTime = convertLunarToSolar(dateTime.Year, dateTime.Month, dateTime.Day);
-            if (dateTime.Month == selectedDate.Month && !holidayDate.ContainsKey(dateTime.Day))
-            {
-                holidayDate.Add(dateTime.Day, "설날");
-            }
+            holidayDate = setLunarHoliday(dateTime, selectedDate, holidayDate, "설날");
+
             dateTime = new DateTime(selectedDate.Year, 1, 2);
             dateTime = convertLunarToSolar(dateTime.Year, dateTime.Month, dateTime.Day);
-            if (dateTime.Month == selectedDate.Month && !holidayDate.ContainsKey(dateTime.Day))
-            {
-                holidayDate.Add(dateTime.Day, "설 연휴");
-            }
+            holidayDate = setLunarHoliday(dateTime, selectedDate, holidayDate, "설 연휴");
 
             // 추석 연휴 음력 계산
             dateTime = new DateTime(selectedDate.Year, 8, 14);
             dateTime = convertLunarToSolar(dateTime.Year, dateTime.Month, dateTime.Day);
-            if (dateTime.Month == selectedDate.Month && !holidayDate.ContainsKey(dateTime.Day))
-            {
-                holidayDate.Add(dateTime.Day, "추석 연휴");
-            }
+            holidayDate = setLunarHoliday(dateTime, selectedDate, holidayDate, "추석 연휴");
+
             dateTime = new DateTime(selectedDate.Year, 8, 15);
             dateTime = convertLunarToSolar(dateTime.Year, dateTime.Month, dateTime.Day);
-            if (dateTime.Month == selectedDate.Month && !holidayDate.ContainsKey(dateTime.Day))
-            {
-                holidayDate.Add(dateTime.Day, "추석");
-            }
+            holidayDate = setLunarHoliday(dateTime, selectedDate, holidayDate, "추석");
+   
             dateTime = new DateTime(selectedDate.Year, 8, 16);
             dateTime = convertLunarToSolar(dateTime.Year, dateTime.Month, dateTime.Day);
-            if (dateTime.Month == selectedDate.Month && !holidayDate.ContainsKey(dateTime.Day))
-            {
-                holidayDate.Add(dateTime.Day, "추석 연휴");
-            }
+            holidayDate = setLunarHoliday(dateTime, selectedDate, holidayDate, "추석 연휴");
 
             // 석가탄신일 음력 계산
             dateTime = new DateTime(selectedDate.Year, 4, 8);
             dateTime = convertLunarToSolar(dateTime.Year, dateTime.Month, dateTime.Day);
-            if (dateTime.Month == selectedDate.Month && !holidayDate.ContainsKey(dateTime.Day))
-            {
-                holidayDate.Add(dateTime.Day, "석가탄신일");
-            }
+            holidayDate = setLunarHoliday(dateTime, selectedDate, holidayDate, "석가탄신일");
+            
+            return holidayDate;
+        }
 
+        // 음력 공휴일을 휴일 데이터(Dictionary)에 추가 하는 메서드(Dictionary<int, List<string>> 반환)
+        // 인자 목록
+        // 양력으로 변환된 공휴일 DateTime dateTime
+        // 현재 지정된 날짜 DateTime selectedDate
+        // 휴일 데이터를 추가할 곳 Dictionary<int, List<string>> holidayDate
+        // 추가할 휴일 이름 string holiday
+        private Dictionary<int, List<string>> setLunarHoliday(
+            DateTime dateTime, DateTime selectedDate, Dictionary<int, List<string>> holidayDate, string holiday)
+        {
+            if (dateTime.Month == selectedDate.Month)
+            {
+                if (holidayDate.ContainsKey(dateTime.Day))
+                {
+                    holidayDate[dateTime.Day].Add(holiday);
+                }
+                else
+                {
+                    holidayDate.Add(dateTime.Day, new List<string> { holiday });
+                }
+            }
             return holidayDate;
         }
 
@@ -238,7 +249,7 @@ namespace MyCalendar
                 for (int j = 0; j < 6; j++)
                 {
                     Label dayLabel = new Label();
-                    dayLabel.AutoSize = false;
+                    dayLabel.AutoSize = true;
                     dayLabel.BackColor = Color.White;
                     dayLabel.TextAlign = ContentAlignment.TopLeft;
                     dayLabel.Font = new Font("맑은 고딕", 9, FontStyle.Regular);
