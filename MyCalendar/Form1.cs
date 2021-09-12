@@ -83,6 +83,7 @@ namespace MyCalendar
                 if (holidayDate != null && holidayDate.ContainsKey(i))
                 {
                     dayLabels[index].ForeColor = Color.Red;
+                    dayLabels[index].BackColor = Color.FromArgb(255, 220, 220);
                     dayLabels[index].Text += "\n" + holidayDate[i];
                 }
                 else
@@ -96,7 +97,8 @@ namespace MyCalendar
                 // 오늘 일자 체크(라벨 테두리 on)
                 if (selectedDate.Year == DateTime.Now.Year && selectedDate.Month == DateTime.Now.Month && selectedDate.Day == i)
                 {
-                    dayLabels[index].BorderStyle = BorderStyle.FixedSingle; 
+                    dayLabels[index].BorderStyle = BorderStyle.FixedSingle;
+                    dayLabels[index].BackColor = Color.FromArgb(180, 255, 180);
                 }
             }
         }
@@ -255,9 +257,8 @@ namespace MyCalendar
         {
             for (int i = 0; i < 42; i++)
             {
-                dayLabels[i].BorderStyle = System.Windows.Forms.BorderStyle.None;
+                dayLabels[i].BorderStyle = BorderStyle.None;
                 dayLabels[i].BackColor = Color.White;
-                dayLabels[i].Cursor = Cursors.Default;
                 dayLabels[i].Text = string.Empty;
             }
         }

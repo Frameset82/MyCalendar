@@ -7,3 +7,4 @@ E:\포트폴리오\Wemade\MyCalendar\MyCalendar\obj\Debug\MyCalendar.csproj.Gene
 E:\포트폴리오\Wemade\MyCalendar\MyCalendar\obj\Debug\MyCalendar.csproj.CoreCompileInputs.cache
 E:\포트폴리오\Wemade\MyCalendar\MyCalendar\obj\Debug\MyCalendar.exe
 E:\포트폴리오\Wemade\MyCalendar\MyCalendar\obj\Debug\MyCalendar.pdb
+E:\포트폴리오\Wemade\MyCalendar\MyCalendar\obj\Debug\MyCalendar.csproj.AssemblyReference.cache
