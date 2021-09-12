@@ -22,6 +22,23 @@ namespace MyCalendar
             setDate(currentDate);
         }
 
+        // 현재 달 라벨 마우스호버 이벤트 메서드
+        private void currentMonthLabel_MouseHover(object sender, EventArgs e)
+        {
+            monthLabel.ForeColor = Color.Blue;
+        }
+        private void currentMonthLabel_MouseLeave(object sender, EventArgs e)
+        {
+            monthLabel.ForeColor = Color.Black;
+        }
+
+        // 현재 달 라벨 클릭 메서드(오늘 날짜로 달력 이동)
+        private void currentMonthLabel_Clicked(object sender, EventArgs e)
+        {
+            DateTime currentMonthDate = DateTime.Now;
+            setDate(currentMonthDate);
+        }
+
         // 다음 달 버튼 클릭 메서드
         private void nextMonthBtn_Clicked(object sender, EventArgs e)
         {
@@ -46,11 +63,12 @@ namespace MyCalendar
             currentDate = selectedDate;
         }
 
-        // 지정된 달의 날짜 데이터 가져오기
+        // 지정된 달의 날짜 데이터 Set
         private void setDate(DateTime selectedDate)
         {
             clearDayLabels();
             setCurrentDate(selectedDate);
+
             Dictionary<int, string> holidayDate = getHoliday(selectedDate);
             DateTime startDay = new DateTime(selectedDate.Year, selectedDate.Month, 1);
             int endDay = DateTime.DaysInMonth(selectedDate.Year, selectedDate.Month);
@@ -59,22 +77,26 @@ namespace MyCalendar
             for (int i = 1; i <= endDay; i++)
             {
                 int index = i + startDayWeek - 1;
-
                 dayLabels[index].Text = string.Format("{0:0}", i);
 
                 // 공휴일 체크
                 if (holidayDate != null && holidayDate.ContainsKey(i))
                 {
-                    dayLabels[index].ForeColor = System.Drawing.Color.Red;
+                    dayLabels[index].ForeColor = Color.Red;
                     dayLabels[index].Text += "\n" + holidayDate[i];
                 }
                 else
                 {   // 일요일 체크
                     if (index % 7 == 0)
                     {
-                        dayLabels[index].ForeColor = System.Drawing.Color.Red;
+                        dayLabels[index].ForeColor = Color.Red;
                     }
-                    else dayLabels[index].ForeColor = System.Drawing.Color.Black;
+                    else dayLabels[index].ForeColor = Color.Black;
+                }
+                // 오늘 일자 체크(라벨 테두리 on)
+                if (selectedDate.Year == DateTime.Now.Year && selectedDate.Month == DateTime.Now.Month && selectedDate.Day == i)
+                {
+                    dayLabels[index].BorderStyle = BorderStyle.FixedSingle; 
                 }
             }
         }
@@ -110,31 +132,59 @@ namespace MyCalendar
                 default:
                     break;
             }
+
+            // 음력 -> 양력 데이터 변환이 필요한 공휴일 체크
+            // 휴일 하나씩 모두 검사해야 연휴가 있음에도 표시되지 않는 현상을 피할 수 있음
+            // 일반 공휴일과 겹칠시 일반 공휴일을 표시
+
             // 설 연휴 음력 계산
-            DateTime dateTime = new DateTime(selectedDate.Year, 1, 1);
+            DateTime dateTime = new DateTime(selectedDate.Year -1, 12, 30);
             dateTime = convertLunarToSolar(dateTime.Year, dateTime.Month, dateTime.Day);
-            if (dateTime.Month == selectedDate.Month)
+            if (dateTime.Month == selectedDate.Month && !holidayDate.ContainsKey(dateTime.Day))
             {
-                holidayDate.Add(dateTime.Day - 1, "설 연휴");
-                holidayDate.Add(dateTime.Day, "설날");
-                holidayDate.Add(dateTime.Day + 1, "설 연휴");
+                holidayDate.Add(dateTime.Day, "설 연휴");
             }
+            dateTime = new DateTime(selectedDate.Year, 1, 1);
+            dateTime = convertLunarToSolar(dateTime.Year, dateTime.Month, dateTime.Day);
+            if (dateTime.Month == selectedDate.Month && !holidayDate.ContainsKey(dateTime.Day))
+            {
+                holidayDate.Add(dateTime.Day, "설날");
+            }
+            dateTime = new DateTime(selectedDate.Year, 1, 2);
+            dateTime = convertLunarToSolar(dateTime.Year, dateTime.Month, dateTime.Day);
+            if (dateTime.Month == selectedDate.Month && !holidayDate.ContainsKey(dateTime.Day))
+            {
+                holidayDate.Add(dateTime.Day, "설 연휴");
+            }
+
             // 추석 연휴 음력 계산
+            dateTime = new DateTime(selectedDate.Year, 8, 14);
+            dateTime = convertLunarToSolar(dateTime.Year, dateTime.Month, dateTime.Day);
+            if (dateTime.Month == selectedDate.Month && !holidayDate.ContainsKey(dateTime.Day))
+            {
+                holidayDate.Add(dateTime.Day, "추석 연휴");
+            }
             dateTime = new DateTime(selectedDate.Year, 8, 15);
             dateTime = convertLunarToSolar(dateTime.Year, dateTime.Month, dateTime.Day);
-            if (dateTime.Month == selectedDate.Month)
+            if (dateTime.Month == selectedDate.Month && !holidayDate.ContainsKey(dateTime.Day))
             {
-                holidayDate.Add(dateTime.Day - 1, "추석 연휴");
                 holidayDate.Add(dateTime.Day, "추석");
-                holidayDate.Add(dateTime.Day + 1, "추석 연휴");
             }
+            dateTime = new DateTime(selectedDate.Year, 8, 16);
+            dateTime = convertLunarToSolar(dateTime.Year, dateTime.Month, dateTime.Day);
+            if (dateTime.Month == selectedDate.Month && !holidayDate.ContainsKey(dateTime.Day))
+            {
+                holidayDate.Add(dateTime.Day, "추석 연휴");
+            }
+
             // 석가탄신일 음력 계산
             dateTime = new DateTime(selectedDate.Year, 4, 8);
             dateTime = convertLunarToSolar(dateTime.Year, dateTime.Month, dateTime.Day);
-            if (dateTime.Month == selectedDate.Month)
+            if (dateTime.Month == selectedDate.Month && !holidayDate.ContainsKey(dateTime.Day))
             {
                 holidayDate.Add(dateTime.Day, "석가탄신일");
             }
+
             return holidayDate;
         }
 
@@ -163,8 +213,8 @@ namespace MyCalendar
                 lunarCalenar.ToDateTime(lunarYear, lunarMonth, lunarDay, 0, 0, 0, 0);
             }
             catch
-            {   //음력은 마지막 날짜가 매달 다르기 때문에 예외 뜨면 그날 맨 마지막 날로 지정
-                return lunarCalenar.ToDateTime(lunarYear, lunarMonth, lunarCalenar.GetDaysInMonth(lunarYear, lunarDay), 0, 0, 0, 0);
+            {   // 음력은 마지막 날짜가 매달 다르기 때문에 예외 발생시 마지막 일로 지정
+                return lunarCalenar.ToDateTime(lunarYear, lunarMonth, lunarCalenar.GetDaysInMonth(lunarYear, lunarMonth), 0, 0, 0, 0);
             }
             return lunarCalenar.ToDateTime(lunarYear, lunarMonth, lunarDay, 0, 0, 0, 0);
         }
@@ -187,10 +237,9 @@ namespace MyCalendar
                 {
                     Label dayLabel = new Label();
                     dayLabel.AutoSize = false;
-                    dayLabel.ForeColor = Color.Black;
                     dayLabel.BackColor = Color.White;
                     dayLabel.TextAlign = ContentAlignment.TopLeft;
-                    dayLabel.Font = new Font("맑은 고딕", 11, FontStyle.Bold);
+                    dayLabel.Font = new Font("맑은 고딕", 9, FontStyle.Regular);
                     dayLabel.BorderStyle = BorderStyle.None;
                     dayLabel.Margin = new Padding(1);
                     dayLabel.Padding = new Padding(0);
@@ -212,5 +261,6 @@ namespace MyCalendar
                 dayLabels[i].Text = string.Empty;
             }
         }
+
     }
 }

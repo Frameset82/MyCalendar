@@ -96,9 +96,9 @@ namespace MyCalendar
             // thuLabel
             // 
             this.thuLabel.AutoSize = true;
-            this.thuLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.thuLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.thuLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.thuLabel.Font = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.thuLabel.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.thuLabel.ForeColor = System.Drawing.Color.White;
             this.thuLabel.Location = new System.Drawing.Point(433, 1);
             this.thuLabel.Margin = new System.Windows.Forms.Padding(1);
@@ -111,9 +111,9 @@ namespace MyCalendar
             // friLabel
             // 
             this.friLabel.AutoSize = true;
-            this.friLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.friLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.friLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.friLabel.Font = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.friLabel.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.friLabel.ForeColor = System.Drawing.Color.White;
             this.friLabel.Location = new System.Drawing.Point(541, 1);
             this.friLabel.Margin = new System.Windows.Forms.Padding(1);
@@ -126,9 +126,9 @@ namespace MyCalendar
             // satLabel
             // 
             this.satLabel.AutoSize = true;
-            this.satLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.satLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.satLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.satLabel.Font = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.satLabel.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.satLabel.ForeColor = System.Drawing.Color.White;
             this.satLabel.Location = new System.Drawing.Point(649, 1);
             this.satLabel.Margin = new System.Windows.Forms.Padding(1);
@@ -141,9 +141,9 @@ namespace MyCalendar
             // wedLabel
             // 
             this.wedLabel.AutoSize = true;
-            this.wedLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.wedLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.wedLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.wedLabel.Font = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.wedLabel.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.wedLabel.ForeColor = System.Drawing.Color.White;
             this.wedLabel.Location = new System.Drawing.Point(325, 1);
             this.wedLabel.Margin = new System.Windows.Forms.Padding(1);
@@ -156,9 +156,9 @@ namespace MyCalendar
             // sunLabel
             // 
             this.sunLabel.AutoSize = true;
-            this.sunLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.sunLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.sunLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sunLabel.Font = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.sunLabel.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.sunLabel.ForeColor = System.Drawing.Color.White;
             this.sunLabel.Location = new System.Drawing.Point(1, 1);
             this.sunLabel.Margin = new System.Windows.Forms.Padding(1);
@@ -171,9 +171,9 @@ namespace MyCalendar
             // monLabel
             // 
             this.monLabel.AutoSize = true;
-            this.monLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.monLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.monLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.monLabel.Font = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.monLabel.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.monLabel.ForeColor = System.Drawing.Color.White;
             this.monLabel.Location = new System.Drawing.Point(109, 1);
             this.monLabel.Margin = new System.Windows.Forms.Padding(1);
@@ -186,9 +186,9 @@ namespace MyCalendar
             // tuoLabel
             // 
             this.tuoLabel.AutoSize = true;
-            this.tuoLabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.tuoLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.tuoLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tuoLabel.Font = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.tuoLabel.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.tuoLabel.ForeColor = System.Drawing.Color.White;
             this.tuoLabel.Location = new System.Drawing.Point(217, 1);
             this.tuoLabel.Margin = new System.Windows.Forms.Padding(1);
@@ -201,6 +201,7 @@ namespace MyCalendar
             // monthLabel
             // 
             this.monthLabel.BackColor = System.Drawing.SystemColors.Control;
+            this.monthLabel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.monthLabel.Font = new System.Drawing.Font("맑은 고딕", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.monthLabel.Location = new System.Drawing.Point(333, 35);
             this.monthLabel.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
@@ -209,10 +210,13 @@ namespace MyCalendar
             this.monthLabel.TabIndex = 2;
             this.monthLabel.Text = "Mon";
             this.monthLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.monthLabel.Click += new System.EventHandler(this.currentMonthLabel_Clicked);
+            this.monthLabel.MouseLeave += new System.EventHandler(this.currentMonthLabel_MouseLeave);
+            this.monthLabel.MouseHover += new System.EventHandler(this.currentMonthLabel_MouseHover);
             // 
             // yearLabel
             // 
-            this.yearLabel.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.yearLabel.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.yearLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.yearLabel.Location = new System.Drawing.Point(335, 35);
             this.yearLabel.Name = "yearLabel";
@@ -247,6 +251,7 @@ namespace MyCalendar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(784, 511);
             this.Controls.Add(this.preBtn);
             this.Controls.Add(this.nextBtn);
@@ -254,6 +259,7 @@ namespace MyCalendar
             this.Controls.Add(this.monthLabel);
             this.Controls.Add(this.weekLayoutTable);
             this.Controls.Add(this.dayLayoutTable);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
             this.weekLayoutTable.ResumeLayout(false);
             this.weekLayoutTable.PerformLayout();

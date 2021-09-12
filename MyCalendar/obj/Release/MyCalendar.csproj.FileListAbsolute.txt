@@ -1,0 +1,9 @@
+E:\포트폴리오\Wemade\MyCalendar\MyCalendar\bin\Release\MyCalendar.exe.config
+E:\포트폴리오\Wemade\MyCalendar\MyCalendar\bin\Release\MyCalendar.exe
+E:\포트폴리오\Wemade\MyCalendar\MyCalendar\bin\Release\MyCalendar.pdb
+E:\포트폴리오\Wemade\MyCalendar\MyCalendar\obj\Release\MyCalendar.Form1.resources
+E:\포트폴리오\Wemade\MyCalendar\MyCalendar\obj\Release\MyCalendar.Properties.Resources.resources
+E:\포트폴리오\Wemade\MyCalendar\MyCalendar\obj\Release\MyCalendar.csproj.GenerateResource.cache
+E:\포트폴리오\Wemade\MyCalendar\MyCalendar\obj\Release\MyCalendar.csproj.CoreCompileInputs.cache
+E:\포트폴리오\Wemade\MyCalendar\MyCalendar\obj\Release\MyCalendar.exe
+E:\포트폴리오\Wemade\MyCalendar\MyCalendar\obj\Release\MyCalendar.pdb
