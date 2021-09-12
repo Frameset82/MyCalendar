@@ -78,6 +78,7 @@ namespace MyCalendar
             {
                 int index = i + startDayWeek - 1;
                 dayLabels[index].Text = string.Format("{0:0}", i);
+                //dayLabels[index].Text = i.ToString();
 
                 // 공휴일 체크
                 if (holidayDate != null && holidayDate.ContainsKey(i))
@@ -98,6 +99,7 @@ namespace MyCalendar
                     else dayLabels[index].ForeColor = Color.Black;
                 }
                 // 오늘 일자 체크(라벨 테두리 on, 배경색 녹색(180, 255, 180))
+                // 테두리 생성은 깜빡이는 현상 발생시킴 -> 보류
                 if (selectedDate.Year == DateTime.Now.Year && selectedDate.Month == DateTime.Now.Month && selectedDate.Day == i)
                 {
                     //dayLabels[index].BorderStyle = BorderStyle.FixedSingle;
@@ -141,7 +143,7 @@ namespace MyCalendar
             }
 
             // 음력 -> 양력 데이터 변환이 필요한 공휴일 체크
-            // 휴일 하나씩 모두 검사해야 연휴가 있음에도 표시되지 않는 현상을 피할 수 있음
+            // 휴일 하나씩 모두 검사해야 연휴가 있음에도 표시되지 않는 결함을 해결할 수 있음
             // 일반 공휴일과 겹칠시 일반 공휴일을 우선 표시 ex(어린이날과 석가탄신일이 겹칠경우 어린이날이 위에 표시)
 
             // 설 연휴 음력 계산
@@ -232,7 +234,7 @@ namespace MyCalendar
             return lunarCalenar.ToDateTime(lunarYear, lunarMonth, lunarDay, 0, 0, 0, 0);
         }
 
-        // 일자 데이터 라벨 행렬 생성
+        // 일자 라벨 행렬 생성
         private void setRowColumns()
         {
             for (int i = 0; i < 7; i++)
